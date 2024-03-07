@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librestays</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="#" hx-get="/hotels" hx-target="#main-content">Hotels</a></li>
+                <li><a href="#" hx-get="/about" hx-target="#main-content">About Us</a></li>
+                <li><a href="#" hx-get="/contact" hx-target="#main-content">Contact</a></li>
+                <li><a href="#" hx-get="/login" hx-target="#main-content" hx-push-url="true">Login</a></li>
+                <li><a href="#" hx-get="/register" hx-target="#main-content" hx-push-url="true">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="main-content">
+        <h1>LibreStays</h1>
+        <p>book hotels. with bitcoin. no kyc.</p>
+        <div class="search-box">
+            <input type="text" placeholder="Search for hotels..." hx-get="/search" hx-trigger="keyup delay:500ms" hx-target="#search-results" hx-indicator="#loading">
+            <div id="loading" style="display:none;">Loading...</div>
+        </div>
+        <div id="search-results">
+            <!-- Search results will be loaded here -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Librestays. All rights reserved.</p>
+    </footer>
+</body>
+</html>

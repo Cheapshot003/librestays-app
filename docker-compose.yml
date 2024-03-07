@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      # Assuming your application can use a similar environment variable to connect to PostgreSQL
+      DATABASE_URL: postgresql://ole:sicherespasswort@postgres:5432/mydatabase
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: ole
+      POSTGRES_PASSWORD: sicherespasswort
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
+    
+volumes:
+  postgres-data:
+
