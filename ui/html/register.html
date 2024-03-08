@@ -1,7 +1,7 @@
 <div class="login-container">
     <h2>Register</h2>
     <a href="#" hx-get="/login" hx-target="#main-content">Already got an account? Login here</a>
-    <form id="registerForm" hx-post="/register" hx-target="#main-content" hx-swap="outerHTML">
+    <form id="registerForm" hx-post="/register" hx-target="#main-content" hx-swap="innerHTML">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         

@@ -4,24 +4,18 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 )
 
-const (
-	host     = "postgres"
-	port     = 5432
-	user     = "ole"
-	password = "sicherespasswort"
-	dbname   = "mydatabase"
-)
-
 var DB *sql.DB
 
 func ConnectDatabase() {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+	fmt.Println(os.Getenv("DB_PASS"))
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_USER"), os.Getenv("DB_PASS"), os.Getenv("DB_NAME"))
 
 	var err error
 	DB, err = sql.Open("postgres", psqlInfo)
@@ -35,6 +29,20 @@ func ConnectDatabase() {
 	}
 
 	fmt.Println("Successfully connected to the database!")
+}
+
+func InitDB() error {
+	createTableSQL := `CREATE TABLE IF NOT EXISTS users (
+		id SERIAL PRIMARY KEY,
+		username TEXT NOT NULL,
+		password TEXT NOT NULL
+	);`
+
+	if _, err := DB.Exec(createTableSQL); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func CreateUser(username, password string) error {
